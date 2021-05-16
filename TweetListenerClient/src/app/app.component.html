@@ -1,0 +1,62 @@
+<div class="container"> <div class=" text-center mt-5 ">
+  <h1>Create Tweet Listener</h1>
+  <p>You can create only 5 users !!!!</p>
+</div>
+    <div *ngIf="!postedForm" class="row ">
+      <form #addressForm="ngForm" class="container mt-3" (ngSubmit)="logValue()">
+        <div class="row justify-content-center">
+          <div class="col-6">
+              <button type="button" class="btn btn-primary mb-2" (click)="addformValue()">Add User</button>
+            <section class="container border mb-4 p-3" *ngFor="let formvalue of formlist; let i = index;">
+              <div class="row">
+                <div class="col-6">
+                    <h4>User {{i + 1}}</h4>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeformValue(i)">Remove</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Tweet Owner Username</label>
+                        <input type="text" class="form-control" [(ngModel)]="formvalue.tweetOwner" name="tweetOwner_{{formvalue.id}}" autocomplete="off" placeholder="Example elonmusk...."/>
+                      </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Tweet Text</label>
+                        <input type="text" class="form-control" [(ngModel)]="formvalue.tweetText" name="tweetText_{{formvalue.id}}" autocomplete="off" placeholder="Example bitcoin...."/>
+                      </div>
+                </div>
+              </div>
+            </section>
+            <div class="text-right">
+                <input type="submit" class="btn btn-success" value="Create Listener"/>
+            </div>
+          </div>
+        </div>
+      </form>                 
+    </div>
+    <h3>Listening Users</h3>
+    <button type="button" class="btn btn-danger btn-sm" (click)="removeTweetListener()">Remove Listener</button>
+    <table style="margin-top: 20px;"  class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Searching Text</th>
+          <th scope="col">Created Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of listeninguserList; let i = index;">
+          <th scope="row">1</th>
+          <td>{{user.tweetOwner}}</td>
+          <td>{{user.tweetText}}</td>
+          <td>{{user.createdDate}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<router-outlet></router-outlet>
