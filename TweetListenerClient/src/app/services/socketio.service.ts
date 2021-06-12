@@ -10,7 +10,7 @@ export class SocketioService {
   socket:any;
   constructor() {}
   setupSocketConnection() {
-    this.socket=io(environment.SOCKET_ENDPOINT);
+    this.socket = io(environment.SOCKET_ENDPOINT);
   }
   createListener(data:any[] ) {
     this.socket.emit("addtweetlistener",data);
@@ -18,4 +18,5 @@ export class SocketioService {
   removeListener() {
     this.socket.emit("removetweetlistener");
   }
+  
 }

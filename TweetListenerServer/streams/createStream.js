@@ -99,10 +99,7 @@ function streamConnect(retryAttempt,socket) {
         } catch (e) {
             if (data.detail === "This stream is currently at the maximum allowed connection limit.") {
                 console.log(data.detail)
-                // process.exit(1)
-            } else {
-                // Keep alive signal received. Do nothing.
-            }
+            } else {}
         }
 
     }).on('err', error => {
