@@ -94,7 +94,8 @@ function streamConnect(retryAttempt,socket) {
         try {
 
             const json = JSON.parse(data);
-            socket.emit("newTweet",{title:json.matching_rules[0].tag + " " + " has a new tweet.",
+            console.log(json);
+            socket.sockets.emit("newTweet",{title:json.matching_rules[0].tag + " " + " has a new tweet.",
             message:json.matching_rules[0].tag + ":" +json.data.text} );
             retryAttempt = 0;
             

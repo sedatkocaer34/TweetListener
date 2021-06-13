@@ -26,8 +26,12 @@ io.on('connection',  (socket) =>  {
   });
 
   socket.on('removetweetlistener', async () => {
-    currentStream.request.abort();
-    console.log("Request Aborted.");
+    if(currentStream)
+    {
+      currentStream.request.abort();
+      console.log("Request Aborted.");
+    }
+   
   });
 });
 

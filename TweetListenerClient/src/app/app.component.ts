@@ -30,10 +30,11 @@ export class AppComponent implements OnInit  {
     this.strogeValue = localStorage.getItem('postedform') || null;
     if(this.strogeValue)
     {
-      this.postedForm = JSON.parse(this.strogeValue);
+      this.listeninguserList = JSON.parse(this.strogeValue);
+      this.postedForm=true;
+      
     }
-    localStorage.removeItem('postedform'); 
-    this.showNewTweetNotification("sda","sdas");
+    this.getNewTweet();
   }
 
   addformValue()
@@ -67,8 +68,8 @@ export class AppComponent implements OnInit  {
       }));
     this.clearForm();
     this.postedForm = true;
-    localStorage.setItem("postedform",JSON.stringify(this.postedForm));
-
+    localStorage.setItem("postedform",JSON.stringify(this.listeninguserList));
+    this.getNewTweet();
   }
 
   clearForm()
@@ -90,16 +91,20 @@ export class AppComponent implements OnInit  {
      localStorage.removeItem("postedform");
     }
     this.postedForm = false;
+    this.listeninguserList.length = 0;
     this.clearForm();
   }
 
   getNewTweet()
   {
-    const data = this.socketService.getNewTweet();
-    this.showNewTweetNotification(data.title,data.message)
+    const socket = this.socketService.getSocket();
+    socket.on("newTweet",(data:any) =>{
+      this.showNewTweetNotification(data.title,data.message);
+    });
+    
   }
 
   showNewTweetNotification(title:string,message:string) {
-    this.toastr.success(title, message);
+    this.toastr.success(message,title);
   }
 }

@@ -19,11 +19,14 @@ export class SocketioService {
     this.socket.emit("removetweetlistener");
   }
 
-  getNewTweet():any {
-    this.socket.on("newTweet",(data:any) =>{
-      console.log(data);
-        return data;
-    })
+  getSocket():any {
+   if(this.socket)
+   {
+     return this.socket;
+   }
+   this.setupSocketConnection();
+   return this.socket;
+
   }
 
 }
