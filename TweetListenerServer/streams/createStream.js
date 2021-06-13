@@ -92,14 +92,18 @@ function streamConnect(retryAttempt,socket) {
     stream.on('data', data => {
 
         try {
+
             const json = JSON.parse(data);
-            console.log(json);
-            socket.emit("newTweet",json);
+            socket.emit("newTweet",{title:json.matching_rules[0].tag + " " + " has a new tweet.",
+            message:json.matching_rules[0].tag + ":" +json.data.text} );
             retryAttempt = 0;
+            
         } catch (e) {
             if (data.detail === "This stream is currently at the maximum allowed connection limit.") {
                 console.log(data.detail)
-            } else {}
+            } else {
+                
+            }
         }
 
     }).on('err', error => {

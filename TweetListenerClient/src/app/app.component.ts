@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { SocketioService } from './services/socketio.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit  {
   }];
 
   @ViewChild("btn") btn:any;
-  constructor(private socketService: SocketioService) {}
+  constructor(private socketService: SocketioService,private toastr: ToastrService) {}
   
   ngOnInit()
   {
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit  {
       this.postedForm = JSON.parse(this.strogeValue);
     }
     localStorage.removeItem('postedform'); 
+    this.showNewTweetNotification("sda","sdas");
   }
 
   addformValue()
@@ -82,5 +84,22 @@ export class AppComponent implements OnInit  {
   removeTweetListener()
   {
     this.socketService.removeListener();
+    this.strogeValue = localStorage.getItem('postedform') || null;
+    if(this.strogeValue)
+    {
+     localStorage.removeItem("postedform");
+    }
+    this.postedForm = false;
+    this.clearForm();
+  }
+
+  getNewTweet()
+  {
+    const data = this.socketService.getNewTweet();
+    this.showNewTweetNotification(data.title,data.message)
+  }
+
+  showNewTweetNotification(title:string,message:string) {
+    this.toastr.success(title, message);
   }
 }

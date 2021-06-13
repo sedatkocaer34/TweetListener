@@ -19,13 +19,15 @@ io.on('connection',  (socket) =>  {
         }
         for (const index in listenerdata) {  
           ruleList[index] = {from:listenerdata[index].tweetOwner ,
-            text:listenerdata[index].tweetText , tag:`${listenerdata[index].tweetText} tags`};
+            text:listenerdata[index].tweetText , tag:`${listenerdata[index].tweetOwner}`};
         }
         currentStream = await createStream.startStream(ruleList,io);
+        console.log(currentStream);
   });
 
   socket.on('removetweetlistener', async () => {
     currentStream.request.abort();
+    console.log("Request Aborted.");
   });
 });
 
