@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  nodejs-server:
+    build:
+      context: ./TweetListenerServer
+      dockerfile: Dockerfile
+    ports:
+       - '3000:3000'
+    restart: always  
+    container_name: tweetlistenerserver
+    volumes:
+      - ./TweetListenerServer/:/usr/src/app
+     
+                    
+  
+              
+  angular-web:
+    build:
+      context: ./TweetListenerClient
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    container_name: tweetlistenerclient
+    volumes:
+      - ./TweetListenerClient/:/app
+
+volumes:
+  data:   
