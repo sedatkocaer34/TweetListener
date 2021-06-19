@@ -32,7 +32,7 @@ export class AppComponent implements OnInit  {
     {
       this.listeninguserList = JSON.parse(this.strogeValue);
       this.postedForm=true;
-      
+      const checkStorage = this.checkLocalStorageDate();
     }
     this.getNewTweet();
   }
@@ -106,5 +106,18 @@ export class AppComponent implements OnInit  {
 
   showNewTweetNotification(title:string,message:string) {
     this.toastr.success(message,title);
+  }
+
+  checkLocalStorageDate():boolean
+  {
+      const startTime = new Date(JSON.parse(this.strogeValue)[0].createdDate);
+      const endTime = new Date();
+      const difference = endTime.getTime() - startTime.getTime(); // This will give difference in milliseconds
+      const resultInMinutes = Math.round(difference / 60000);
+      if(resultInMinutes>45)
+      {
+        return false;
+      }
+      return true;
   }
 }

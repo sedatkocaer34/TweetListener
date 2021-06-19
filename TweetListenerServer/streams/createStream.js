@@ -1,5 +1,5 @@
 const needle = require('needle');
-const token = "ADD YOUR TOKEN";
+const token = "AAAAAAAAAAAAAAAAAAAAAId4PQEAAAAAodThV09XPsgy1VsVX3VG8cB6JO4%3Drx8b9htZMbQSsrCmiY7CnK0Fp2FoRhJFe2DOwlqAuKktm6BM3a";
 const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules';
 const streamURL = 'https://api.twitter.com/2/tweets/search/stream';
 
